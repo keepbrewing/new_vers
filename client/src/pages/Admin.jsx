@@ -10,7 +10,7 @@ export default function Admin() {
 
   const handleLogin = async () => {
     try {
-      const res = await axios.post("http://localhost:5000/api/admin/login", {
+      const res = await axios.post("https://new-vers.onrender.com/api/admin/login", {
         username,
         password
       });
@@ -18,7 +18,7 @@ export default function Admin() {
       if (res.data.success) {
         setLoggedIn(true);
 
-        const d = await axios.get("http://localhost:5000/api/admin/data");
+        const d = await axios.get("https://new-vers.onrender.com/api/admin/data");
         setData(d.data);
       }
     } catch {
@@ -27,7 +27,7 @@ export default function Admin() {
   };
 
   const exportCSV = () => {
-    window.open("http://localhost:5000/api/admin/export");
+    window.open("https://new-vers.onrender.com/api/admin/export");
   };
 
   // � LOGIN SCREEN
