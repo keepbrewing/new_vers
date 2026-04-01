@@ -1,0 +1,1676 @@
+--- FILE: C:\Users\biswa\Desktop\study-taskv4\project\client\src\App.css ---
+.counter {
+  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: var(--accent);
+  background: var(--accent-bg);
+  border: 2px solid transparent;
+  transition: border-color 0.3s;
+  margin-bottom: 24px;
+
+  &:hover {
+    border-color: var(--accent-border);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}
+
+.hero {
+  position: relative;
+
+  .base,
+  .framework,
+  .vite {
+    inset-inline: 0;
+    margin: 0 auto;
+  }
+
+  .base {
+    width: 170px;
+    position: relative;
+    z-index: 0;
+  }
+
+  .framework,
+  .vite {
+    position: absolute;
+  }
+
+  .framework {
+    z-index: 1;
+    top: 34px;
+    height: 28px;
+    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
+      scale(1.4);
+  }
+
+  .vite {
+    z-index: 0;
+    top: 107px;
+    height: 26px;
+    width: auto;
+    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
+      scale(0.8);
+  }
+}
+
+#center {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  place-content: center;
+  place-items: center;
+  flex-grow: 1;
+
+  @media (max-width: 1024px) {
+    padding: 32px 20px 24px;
+    gap: 18px;
+  }
+}
+
+#next-steps {
+  display: flex;
+  border-top: 1px solid var(--border);
+  text-align: left;
+
+  & > div {
+    flex: 1 1 0;
+    padding: 32px;
+    @media (max-width: 1024px) {
+      padding: 24px 20px;
+    }
+  }
+
+  .icon {
+    margin-bottom: 16px;
+    width: 22px;
+    height: 22px;
+  }
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+#docs {
+  border-right: 1px solid var(--border);
+
+  @media (max-width: 1024px) {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+}
+
+#next-steps ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  gap: 8px;
+  margin: 32px 0 0;
+
+  .logo {
+    height: 18px;
+  }
+
+  a {
+    color: var(--text-h);
+    font-size: 16px;
+    border-radius: 6px;
+    background: var(--social-bg);
+    display: flex;
+    padding: 6px 12px;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: box-shadow 0.3s;
+
+    &:hover {
+      box-shadow: var(--shadow);
+    }
+    .button-icon {
+      height: 18px;
+      width: 18px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    margin-top: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    li {
+      flex: 1 1 calc(50% - 8px);
+    }
+
+    a {
+      width: 100%;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+  }
+}
+
+#spacer {
+  height: 88px;
+  border-top: 1px solid var(--border);
+  @media (max-width: 1024px) {
+    height: 48px;
+  }
+}
+
+.ticks {
+  position: relative;
+  width: 100%;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: -4.5px;
+    border: 5px solid transparent;
+  }
+
+  &::before {
+    left: 0;
+    border-left-color: var(--border);
+  }
+  &::after {
+    right: 0;
+    border-right-color: var(--border);
+  }
+}
+
+--- FILE: C:\Users\biswa\Desktop\study-taskv4\project\client\src\App.jsx ---
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Participant from "./pages/Participant";
+import FriendSelection from "./pages/FriendSelection";
+import PDGame from "./pages/PDGame";
+import AffectGame from "./pages/AffectGame";
+import PreTask from "./pages/PreTask";
+import TaskGame from "./pages/TaskGame";
+import ThankYou from "./pages/ThankYou";
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Participant />} />
+        <Route path="/friend" element={<FriendSelection />} />
+        <Route path="/pd" element={<PDGame />} />
+        <Route path="/affect" element={<AffectGame />} />
+        <Route path="/pre-task" element={<PreTask />} />
+        <Route path="/task" element={<TaskGame />} />
+        <Route path="/thank-you" element={<ThankYou />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+--- FILE: C:\Users\biswa\Desktop\study-taskv4\project\client\src\index.css ---
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- APP BASE ---------- */
+body {
+  @apply text-slate-800;
+}
+
+/* ---------- COMPONENTS ---------- */
+@layer components {
+  .card {
+    @apply bg-white/80 backdrop-blur rounded-3xl shadow-md p-8;
+  }
+
+  .btn-primary {
+    @apply bg-[#6EC1FF] text-white px-8 py-3 rounded-full font-semibold shadow-md active:scale-95 transition;
+  }
+
+  .btn-secondary {
+    @apply bg-[#E6F4FF] text-[#3A8DDE] px-6 py-3 rounded-full font-semibold shadow-sm active:scale-95 transition;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl bg-yellow-100 outline-none;
+  }
+
+  .modal-overlay {
+    @apply fixed inset-0 bg-black/40 flex items-center justify-center z-50;
+  }
+
+  .modal-card {
+    @apply bg-white rounded-3xl p-8 max-w-sm w-full mx-6 text-center space-y-6 shadow-xl;
+  }
+}
+--- FILE: C:\Users\biswa\Desktop\study-taskv4\project\client\src\main.jsx ---
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import "./index.css";
+import { AppProvider } from "./context/AppContext";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <AppProvider>
+    <App />
+  </AppProvider>
+);
+--- FILE: C:\Users\biswa\Desktop\study-taskv4\project\client\src\components\common\AudioButton.jsx ---
+
+--- FILE: C:\Users\biswa\Desktop\study-taskv4\project\client\src\components\common\Background.jsx ---
+export default function Background() {
+  return (
+    <div className="fixed inset-0 -z-10 pointer-events-none">
+      <svg
+        viewBox="0 0 1440 900"
+        preserveAspectRatio="xMidYMid slice"
+        className="w-full h-full"
+      >
+        <circle cx="200" cy="200" r="180" fill="#E6F4FF" />
+        <circle cx="1200" cy="150" r="220" fill="#FFF1CC" />
+        <circle cx="1000" cy="650" r="260" fill="#E9FFF3" />
+        <circle cx="300" cy="700" r="240" fill="#FFEAF1" />
+      </svg>
+    </div>
+  );
+}
+--- FILE: C:\Users\biswa\Desktop\study-taskv4\project\client\src\components\common\Button.jsx ---
+export default function Button({ children, onClick, disabled, className = "" }) {
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className={`
+        px-6 py-3 rounded-full font-semibold shadow-md transition
+        active:scale-95
+        ${disabled ? "bg-gray-400 opacity-50" : "bg-[#6EC1FF] text-white"}
+        ${className}
+      `}
+    >
+      {children}
+    </button>
+  );
+}
+--- FILE: C:\Users\biswa\Desktop\study-taskv4\project\client\src\components\common\LanguageToggle.jsx ---
+import { useContext } from "react";
+import { AppContext } from "../../context/AppContext";
+
+export default function LanguageToggle() {
+  const { language, setLanguage } = useContext(AppContext);
+
+  return (
+    <div className="flex gap-2">
+      <button
+        onClick={() => setLanguage("en")}
+        className={`px-3 py-1 rounded ${language === "en" ? "bg-blue-400 text-white" : "bg-gray-200"}`}
+      >
+        EN
+      </button>
+      <button
+        onClick={() => setLanguage("bn")}
+        className={`px-3 py-1 rounded ${language === "bn" ? "bg-blue-400 text-white" : "bg-gray-200"}`}
+      >
+        BN
+      </button>
+    </div>
+  );
+}
+--- FILE: C:\Users\biswa\Desktop\study-taskv4\project\client\src\components\common\Modal.jsx ---
+
+--- FILE: C:\Users\biswa\Desktop\study-taskv4\project\client\src\components\common\PauseButton.jsx ---
+
+--- FILE: C:\Users\biswa\Desktop\study-taskv4\project\client\src\components\game\GameCard.jsx ---
+
+--- FILE: C:\Users\biswa\Desktop\study-taskv4\project\client\src\components\game\ImageGrid.jsx ---
+
+--- FILE: C:\Users\biswa\Desktop\study-taskv4\project\client\src\components\game\RecordingInput.jsx ---
+
+--- FILE: C:\Users\biswa\Desktop\study-taskv4\project\client\src\context\AppContext.jsx ---
+import { createContext, useState } from "react";
+
+export const AppContext = createContext();
+
+export const AppProvider = ({ children }) => {
+  const [participant, setParticipant] = useState(null);
+  const [friend, setFriend] = useState(null);
+  const [language, setLanguage] = useState("en");
+  const [responses, setResponses] = useState([]);
+  const [isPaused, setIsPaused] = useState(false);
+
+  return (
+    <AppContext.Provider
+      value={{
+        participant,
+        setParticipant,
+        friend,
+        setFriend,
+        language,
+        setLanguage,
+        responses,
+        setResponses,
+        isPaused,
+        setIsPaused,
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  );
+};
+--- FILE: C:\Users\biswa\Desktop\study-taskv4\project\client\src\data\taskData.js ---
+// src/data/taskData.js
+export const categories = {
+  ec: [
+    { word: "Sit with the child", img: "console.png" },
+    { word: "Go and help the child", img: "pick.png" },
+    { word: "Help build the blocks again", img: "share.png" }
+  ],
+  pd: [
+    { word: "Feel sad for the child", img: "crying.png" },
+    { word: "Feel afraid", img: "panicked.png" },
+    { word: "Don't know what to do", img: "pity.png" }
+  ],
+  ai: [
+    { word: "Ignore the child", img: "ignore.png" },
+    { word: "Keep playing with my blocks", img: "play.png" },
+    { word: "Look away and leave the room", img: "walk.png" }
+  ],
+  pa: [
+    { word: "Laugh because it looks funny", img: "laugh.png" },
+    { word: "Smile and enjoy it with other friends", img: "smile.png" },
+    { word: "Giggle a little", img: "giggle.png" }
+  ]
+};
+--- FILE: C:\Users\biswa\Desktop\study-taskv4\project\client\src\hooks\useAudio.js ---
+
+--- FILE: C:\Users\biswa\Desktop\study-taskv4\project\client\src\hooks\usePause.js ---
+import { useContext } from "react";
+import { AppContext } from "../context/AppContext";
+
+export default function usePause() {
+  const { isPaused, setIsPaused } = useContext(AppContext);
+
+  const togglePause = () => {
+    setIsPaused(prev => !prev);
+  };
+
+  return { isPaused, togglePause };
+}
+--- FILE: C:\Users\biswa\Desktop\study-taskv4\project\client\src\hooks\useSpeechToText.js ---
+export default function useSpeechToText(onResult) {
+  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+
+  recognition.lang = "en-US"; // we’ll switch later dynamically
+
+  recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;
+    onResult(transcript);
+  };
+
+  const start = () => recognition.start();
+  const stop = () => recognition.stop();
+
+  return { start, stop };
+}
+--- FILE: C:\Users\biswa\Desktop\study-taskv4\project\client\src\hooks\useTranslation.js ---
+import { useContext } from "react";
+import { AppContext } from "../context/AppContext";
+
+import en from "../i18n/en.json";
+import bn from "../i18n/bn.json";
+
+export default function useTranslation() {
+  const { language } = useContext(AppContext);
+
+  const dict = language === "bn" ? bn : en;
+
+  const t = key => dict[key] || key;
+
+  return { t };
+}
+--- FILE: C:\Users\biswa\Desktop\study-taskv4\project\client\src\i18n\bn.json ---
+{
+  "start": "শুরু",
+  "continue": "চালিয়ে যান",
+  "enterName": "নাম লিখুন",
+
+  "pd_instruction_1": "� সব ছবিগুলো দেখো। কোনো বাচ্চার কি সমস্যা হয়েছে?",
+  "pd_instruction_select": "� যে ছবিতে সমস্যা আছে সেটিতে টাচ করো।",
+  "pd_try_again": "❌ আবার চেষ্টা করো।",
+  "pd_look_carefully": "❌ ভালো করে দেখো এবং আবার চেষ্টা করো।"
+}
+--- FILE: C:\Users\biswa\Desktop\study-taskv4\project\client\src\i18n\en.json ---
+{
+  "start": "Start",
+  "continue": "Continue",
+  "enterName": "Enter Name",
+
+  "pd_instruction_1": "� Look at all the pictures. Is any child having a problem?",
+  "pd_instruction_select": "� Touch the picture that shows the problem.",
+  "pd_try_again": "❌ Try again.",
+  "pd_look_carefully": "❌ Look carefully and try again."
+}
+--- FILE: C:\Users\biswa\Desktop\study-taskv4\project\client\src\pages\AffectGame.jsx ---
+import { useState, useContext, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { AppContext } from "../context/AppContext";
+
+import Button from "../components/common/Button";
+import LanguageToggle from "../components/common/LanguageToggle";
+import Background from "../components/common/Background";
+
+export default function AffectGame() {
+  const { friend, setResponses } = useContext(AppContext);
+  const navigate = useNavigate();
+
+  const [stage, setStage] = useState("2A");
+  const [paused, setPaused] = useState(false);
+  const [recording, setRecording] = useState(false);
+  const [prompt, setPrompt] = useState("");
+  const [transcript, setTranscript] = useState("");
+  const [history, setHistory] = useState([]);
+
+  const [attempt2B, setAttempt2B] = useState(0);
+
+  const recognitionRef = useRef(null);
+  const timersRef = useRef([]);
+
+  // ---------------- TIMER ----------------
+  const addTimer = (fn, delay) => {
+    const id = setTimeout(() => {
+      if (!paused) fn();
+    }, delay);
+    timersRef.current.push(id);
+  };
+
+  const clearTimers = () => {
+    timersRef.current.forEach(clearTimeout);
+    timersRef.current = [];
+  };
+
+  const goBackStage = () => {
+    setHistory(prev => {
+      if (prev.length === 0) return prev;
+
+      const last = prev[prev.length - 1];
+      setStage(last);
+
+      return prev.slice(0, -1);
+    });
+  };
+
+  const goToStage = (nextStage) => {
+    setHistory(prev => [...prev, stage]); // store current
+    setStage(nextStage);
+  };
+
+  useEffect(() => {
+    return () => clearTimers();
+  }, []);
+
+  // ---------------- STAGES ----------------
+
+  const start2A = () => {
+    setPrompt("How is this child feeling?");
+    setTranscript("");
+
+    addTimer(() => {
+      setPrompt("Let's try again. How is this child feeling?");
+    }, 30000);
+
+    addTimer(() => {
+      goToStage("2B");
+    }, 60000);
+  };
+
+  const start2B = () => {
+    setPrompt("Can you show how the child is feeling?");
+    setAttempt2B(0);
+
+    addTimer(() => {
+      setPrompt("Try again. Can you show how the child is feeling?");
+    }, 15000);
+
+    addTimer(() => {
+      goToStage("2C");
+    }, 30000);
+  };
+
+  const start2C = () => {
+    setPrompt("Which one shows how the child is feeling?");
+  };
+
+  const start3 = () => {
+    setPrompt("How do you know the child feels like that?");
+    setTranscript("");
+
+    addTimer(() => {
+      setPrompt("Can you tell me why?");
+    }, 30000);
+
+    addTimer(() => {
+      goToStage("4");
+    }, 60000);
+  };
+
+  const start4 = () => {
+    setPrompt("How did you feel for the child?");
+  };
+
+  const start5 = () => {
+    setPrompt("How much did you feel this?");
+  };
+
+  // ---------------- CONTROLLER ----------------
+  useEffect(() => {
+    clearTimers();
+    setTranscript("");
+
+    if (stage === "2A") start2A();
+    if (stage === "2B") start2B();
+    if (stage === "2C") start2C();
+    if (stage === "3") start3();
+    if (stage === "4") start4();
+    if (stage === "5") start5();
+  }, [stage]);
+
+  // ---------------- SPEECH ----------------
+  const startRecording = () => {
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    const recognition = new SpeechRecognition();
+    recognitionRef.current = recognition;
+
+    recognition.lang = "en-IN";
+    recognition.continuous = true;           // � important
+    recognition.interimResults = true;       // � important
+
+    recognition.onstart = () => {
+      setRecording(true);
+      setTranscript(""); // reset
+    };
+
+    recognition.onresult = (event) => {
+      let finalText = "";
+      let interimText = "";
+
+      for (let i = 0; i < event.results.length; i++) {
+        const text = event.results[i][0].transcript;
+        if (event.results[i].isFinal) {
+          finalText += text;
+        } else {
+          interimText += text;
+        }
+      }
+
+      // � LIVE updating transcript
+      setTranscript(finalText + interimText);
+
+      // � when final speech detected → move stage
+      if (finalText.trim() !== "") {
+        setResponses(prev => [...prev, {
+          stage,
+          transcript: finalText
+        }]);
+
+        setRecording(false);
+        recognitionRef.current = null;
+
+        setStage(prev => {
+          if (prev === "2A") {
+            setHistory(h => [...h, "2A"]);
+            return "2B";
+          }
+
+          if (prev === "3") {
+            setHistory(h => [...h, "3"]);
+            return "4";
+          }
+
+          return prev;
+        });
+      }
+    };
+
+    recognition.onerror = () => {
+      setRecording(false);
+    };
+
+    recognition.start();
+  };
+
+  const stopRecording = () => {
+    if (recognitionRef.current) {
+      recognitionRef.current.onresult = null; // � prevent late trigger
+      recognitionRef.current.stop();
+      recognitionRef.current.abort(); // � force stop
+    }
+
+    setRecording(false);
+  };
+
+  // ---------------- UI ----------------
+
+  return (
+    <>
+    <Background />
+    <div className="min-h-screen flex items-center justify-center px-4">
+
+      <div className="w-full max-w-2xl">
+
+        {/* Top Bar */}
+        <div className="w-full flex justify-between items-center px-2 mb-4">
+          <button onClick={goBackStage} className="bg-white px-3 py-2 rounded shadow">
+            ⬅ Back
+          </button>
+
+          <LanguageToggle />
+
+          <button onClick={() => setPaused(p => !p)} className="bg-white px-3 py-2 rounded shadow">
+            {paused ? "▶ Resume" : "⏸ Pause"}
+          </button>
+        </div>
+
+        <div className="bg-white rounded-3xl p-8 shadow-md text-center space-y-6 max-w-xl mx-auto">
+
+          <img
+            src={`/assets/characters/${friend?.avatar}/target.png`}
+            className="w-44 mx-auto"
+          />
+
+          <p>{prompt}</p>
+
+          {/* Transcript */}
+          {transcript && (
+            <p className="text-sm text-green-600">You said: {transcript}</p>
+          )}
+
+          {/* 2A */}
+          {stage === "2A" && (
+            <Button onClick={recording ? stopRecording : startRecording}>
+              {recording ? "⏹ Stop" : "� Speak"}
+            </Button>
+          )}
+
+          {/* 2B */}
+          {stage === "2B" && (
+            <div className="flex justify-center items-center gap-8 text-5xl">
+              {["�", "�", "�"].map((e, i) => (
+                <div key={i} onClick={() => {
+                  const correct = i === 0;
+                  setAttempt2B(a => a + 1);
+
+                  setResponses(p => [...p, {
+                    stage: "2B",
+                    attempt: attempt2B + 1,
+                    correct
+                  }]);
+
+                  if (correct) {
+                    goToStage("3");
+                  } else if (attempt2B >= 1) {
+                    goToStage("2C");
+                  }
+                }}>
+                  {e}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* 2C */}
+          {stage === "2C" && (
+            <div className="flex justify-center items-center gap-8 text-lg">
+              {["� Sad", "� Okay", "� Happy"].map((e, i) => (
+                <div key={i} onClick={() => {
+                  setResponses(p => [...p, { stage: "2C", value: i }]);
+                  goToStage("3");
+                }}>
+                  {e}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* 3 */}
+          {stage === "3" && (
+            <Button onClick={recording ? stopRecording : startRecording}>
+              {recording ? "⏹ Stop" : "� Speak"}
+            </Button>
+          )}
+
+          {/* 4 */}
+          {stage === "4" && (
+            <div className="flex justify-center items-center gap-8 text-4xl">
+              {["�", "�", "�", "�"].map((e, i) => (
+                <div key={i} onClick={() => {
+                  if (i === 3) navigate("/pre-task");
+                  else goToStage("5");
+                }}>
+                  {e}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* 5 */}
+          {stage === "5" && (
+            <div className="flex justify-center items-center gap-8 text-lg">
+              {["Low", "Medium", "High"].map(val => (
+                <div key={val} onClick={() => {
+                  setResponses(p => [...p, { stage: "5", value: val }]);
+                  navigate("/pre-task");
+                }}>
+                  {val}
+                </div>
+              ))}
+            </div>
+          )}
+
+        </div>
+      </div>
+    </div>
+    </>
+  );
+}
+--- FILE: C:\Users\biswa\Desktop\study-taskv4\project\client\src\pages\FriendSelection.jsx ---
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { AppContext } from "../context/AppContext";
+
+import Button from "../components/common/Button";
+import LanguageToggle from "../components/common/LanguageToggle";
+import useTranslation from "../hooks/useTranslation";
+import Background from "../components/common/Background";
+
+export default function FriendSelection() {
+    const { participant, setFriend } = useContext(AppContext);
+    const { t } = useTranslation();
+    const navigate = useNavigate();
+
+    const [name, setName] = useState("");
+    const [selectedAvatar, setSelectedAvatar] = useState(null);
+
+    const gender = participant?.gender;
+
+    const avatars = [
+        { id: "male1", src: "/assets/avatars/male1.png" },
+        { id: "male2", src: "/assets/avatars/male2.png" },
+        { id: "female1", src: "/assets/avatars/female1.png" },
+        { id: "female2", src: "/assets/avatars/female2.png" },
+    ];
+
+    const isValid = name && selectedAvatar;
+
+    const handleContinue = () => {
+        setFriend({
+            name,
+            avatar: selectedAvatar,
+        });
+
+        navigate("/pd");
+    };
+
+    return (
+        <>
+        <Background />
+        <div className="min-h-screen flex items-center justify-center px-4">
+
+            {/* Top bar */}
+            <div className="absolute top-4 right-4">
+                <LanguageToggle />
+            </div>
+
+            <div className="w-full max-w-md bg-white/90 rounded-3xl p-8 shadow-md space-y-6 text-center">
+
+                <h1 className="text-2xl font-semibold text-slate-700">
+                    Choose your friend
+                </h1>
+
+                {/* Friend Name */}
+                <input
+                    type="text"
+                    placeholder="Friend's Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="w-full px-4 py-3 rounded-xl bg-yellow-100 outline-none"
+                />
+
+                {/* Avatar Selection */}
+                <div className="grid grid-cols-2 gap-4 justify-items-center">
+                    {avatars.map((avatar) => (
+                        <div
+                            key={avatar.id}
+                            onClick={() => setSelectedAvatar(avatar.id)}
+                            className={`
+                cursor-pointer p-2 rounded-2xl transition
+                ${selectedAvatar === avatar.id ? "ring-4 ring-blue-300" : ""}
+              `}
+                        >
+                            <img
+                                src={avatar.src}
+                                alt=""
+                                className="w-24 h-24 object-cover rounded-xl"
+                            />
+                        </div>
+                    ))}
+                </div>
+
+                <Button onClick={handleContinue} disabled={!isValid}>
+                    {t("continue")}
+                </Button>
+            </div>
+        </div>
+        </>
+    );
+}
+--- FILE: C:\Users\biswa\Desktop\study-taskv4\project\client\src\pages\Participant.jsx ---
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { AppContext } from "../context/AppContext";
+import { validateParticipant } from "../services/api";
+
+import Button from "../components/common/Button";
+import LanguageToggle from "../components/common/LanguageToggle";
+import useTranslation from "../hooks/useTranslation";
+import Background from "../components/common/Background";
+
+export default function Participant() {
+  const { setParticipant } = useContext(AppContext);
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const [name, setName] = useState("");
+  const [pid, setPid] = useState("");
+  const [gender, setGender] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const isValid = name && pid && gender;
+
+  const handleSubmit = async () => {
+    if (!isValid) return;
+
+    try {
+      setLoading(true);
+
+      const res = await validateParticipant({
+        name,
+        participantId: pid,
+      });
+
+      if (!res.data.allowed) {
+        alert("Participant already played or not allowed");
+        return;
+      }
+
+      setParticipant({ name, participantId: pid, gender });
+
+      navigate("/friend");
+    } catch (err) {
+      console.error(err);
+      alert("Server error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <>
+      <Background />
+      <div className="min-h-screen flex items-center justify-center px-4">
+        <div className="w-full max-w-[75vh] mx-auto px-6 py-8">
+
+          {/* Top bar */}
+          <div className="absolute top-4 right-4">
+            <LanguageToggle />
+          </div>
+
+          <div className="card w-full max-w-md bg-white/90 backdrop-blur rounded-3xl p-8 shadow-md space-y-6">
+
+            <h1 className="text-2xl font-semibold text-center text-slate-700">
+              {t("start")}
+            </h1>
+
+            {/* Name */}
+            <input
+              type="text"
+              placeholder={t("enterName")}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="input-field w-full px-4 py-3 rounded-xl bg-yellow-100 outline-none"
+            />
+
+            {/* ID */}
+            <input
+              type="text"
+              placeholder="Participant ID"
+              value={pid}
+              onChange={(e) => setPid(e.target.value)}
+              className="w-full px-4 py-3 rounded-xl bg-yellow-100 outline-none"
+            />
+
+            {/* Gender */}
+            <div className="flex justify-center gap-4">
+              <button
+                onClick={() => setGender("male")}
+                className={`px-6 py-2 rounded-full ${gender === "male"
+                  ? "bg-blue-400 text-white"
+                  : "bg-gray-200"
+                  }`}
+              >
+                Male
+              </button>
+
+              <button
+                onClick={() => setGender("female")}
+                className={`px-6 py-2 rounded-full ${gender === "female"
+                  ? "bg-pink-400 text-white"
+                  : "bg-gray-200"
+                  }`}
+              >
+                Female
+              </button>
+            </div>
+
+            {/* Continue */}
+            <Button onClick={handleSubmit} disabled={!isValid || loading}>
+              {loading ? "Loading..." : t("continue")}
+            </Button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+--- FILE: C:\Users\biswa\Desktop\study-taskv4\project\client\src\pages\PDGame.jsx ---
+import { useState, useContext, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { AppContext } from "../context/AppContext";
+import { useEffect } from "react";
+
+import Button from "../components/common/Button";
+import LanguageToggle from "../components/common/LanguageToggle";
+import useTranslation from "../hooks/useTranslation";
+import Background from "../components/common/Background";
+
+export default function PDGame() {
+  const { friend, setResponses } = useContext(AppContext);
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const [phase, setPhase] = useState("question"); // question | selection | help
+  const [instruction, setInstruction] = useState(
+    t("pd_instruction_1")
+  );
+
+  const [blink, setBlink] = useState(false);
+
+  const [noCount, setNoCount] = useState(0);
+  const [attempts, setAttempts] = useState(0);
+  const [hints, setHints] = useState(0);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedCorrect, setSelectedCorrect] = useState(null);
+
+  const audioRef = useRef(new Audio());
+
+  const playAudio = (file) => {
+    audioRef.current.pause();
+    audioRef.current.currentTime = 0;
+    audioRef.current.src = `/assets/audio/${file}`;
+    audioRef.current.play();
+  };
+
+  useEffect(() => {
+    if (phase === "question") {
+      setInstruction(t("pd_instruction_1"));
+    }
+  }, [t, phase]);
+
+  const triggerBlink = () => {
+    setBlink(true);
+    setTimeout(() => setBlink(false), 900);
+  };
+
+  const handleYes = () => {
+    setPhase("selection");
+    setInstruction(t("pd_instruction_select"));
+  };
+
+  const handleNo = () => {
+    const newCount = noCount + 1;
+    setNoCount(newCount);
+    setHints(prev => prev + 1);
+    triggerBlink();
+
+    if (newCount < 3) {
+      setInstruction(t("pd_instruction_1"));
+    } else {
+      setShowModal(true);
+    }
+  };
+
+  const images = [
+    { id: "contrast1", src: "/assets/images/contrast1.png" },
+    { id: "contrast2", src: "/assets/images/contrast2.png" },
+    { id: "contrast3", src: "/assets/images/contrast3.png" },
+    {
+      id: "target",
+      src: `/assets/characters/${friend?.avatar}/target.png`,
+      isTarget: true,
+    },
+  ];
+
+  const handleSelect = (img) => {
+    if (phase !== "selection") return;
+
+    if (img.isTarget) {
+      setSelectedCorrect(img.id);
+      setResponses(prev => [...prev, {
+        stage: "pd",
+        result: "correct",
+        attempts,
+        hints
+      }]);
+
+      setTimeout(() => {
+        navigate("/affect");
+      }, 500);
+      return;
+    }
+
+    const newAttempts = attempts + 1;
+    setAttempts(newAttempts);
+    setHints(prev => prev + 1);
+    triggerBlink();
+
+    if (newAttempts === 1) {
+      setInstruction(t("pd_try_again"));
+    } else if (newAttempts === 2) {
+      setInstruction(t("pd_look_carefully"));
+    } else {
+      setShowModal(true);
+    }
+  };
+
+  return (
+    <>
+    <Background />
+    <div className="min-h-screen flex flex-col items-center px-4 py-6">
+
+      <div className="absolute top-4 right-4">
+        <LanguageToggle />
+      </div>
+
+      {/* Instruction */}
+      <div className="bg-white rounded-3xl p-6 shadow-md text-center max-w-xl w-full space-y-4">
+        <p className="text-lg">{instruction}</p>
+
+        {phase === "question" && (
+          <div className="flex justify-center gap-4">
+            <Button onClick={handleYes}>Yes</Button>
+            <Button onClick={handleNo}>No</Button>
+          </div>
+        )}
+
+        <Button onClick={() => playAudio("instruction1.mp3")}>
+          � Hear Instructions
+        </Button>
+      </div>
+
+      {/* Image Grid */}
+      <div className="flex justify-center w-full">
+        <div className="grid grid-cols-2 gap-6 justify-items-center mt-6">
+          {images.map(img => (
+            <div
+              key={img.id}
+              onClick={() => handleSelect(img)}
+              className={`
+          rounded-xl overflow-hidden shadow transition
+          ${phase === "selection"
+                  ? "cursor-pointer hover:scale-105"
+                  : "pointer-events-none opacity-50"}
+                  ${img.isTarget && blink ? "ring-4 ring-yellow-400 opacity-60" : ""}
+                  ${selectedCorrect === img.id ? "ring-4 ring-green-400 scale-110" : ""}
+        `}
+            >
+              <img
+                src={img.src}
+                className="w-44 h-44 md:w-52 md:h-52 object-cover rounded-xl"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {showModal && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-3xl text-center space-y-4">
+            <p className="text-lg">This child is sad. Let’s look together.</p>
+
+            <img
+              src={`/assets/characters/${friend?.avatar}/target.png`}
+              className="w-40 mx-auto"
+            />
+
+            <Button onClick={() => {
+              setTimeout(() => {
+                navigate("/affect");
+              }, 300);
+            }}>
+              Continue
+            </Button>
+          </div>
+        </div>
+      )}
+    </div>
+    </>
+  );
+}
+--- FILE: C:\Users\biswa\Desktop\study-taskv4\project\client\src\pages\PreTask.jsx ---
+import { useState, useContext, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { AppContext } from "../context/AppContext";
+
+import Button from "../components/common/Button";
+import LanguageToggle from "../components/common/LanguageToggle";
+import Background from "../components/common/Background";
+
+export default function PreTask() {
+  const { friend, setResponses } = useContext(AppContext);
+  const navigate = useNavigate();
+
+  const [recording, setRecording] = useState(false);
+  const [transcript, setTranscript] = useState("");
+
+  const recognitionRef = useRef(null);
+
+  // ---------------- SPEECH ----------------
+  const startRecording = () => {
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      alert("Speech recognition not supported");
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognitionRef.current = recognition;
+
+    recognition.lang = "en-IN";
+    recognition.continuous = true;
+    recognition.interimResults = true;
+
+    recognition.onstart = () => {
+      setRecording(true);
+      setTranscript("");
+    };
+
+    recognition.onresult = (event) => {
+      let finalText = "";
+      let interimText = "";
+
+      for (let i = 0; i < event.results.length; i++) {
+        const text = event.results[i][0].transcript;
+
+        if (event.results[i].isFinal) {
+          finalText += text;
+        } else {
+          interimText += text;
+        }
+      }
+
+      setTranscript(finalText + interimText);
+
+      if (finalText.trim() !== "") {
+        setResponses(prev => [...prev, {
+          stage: "pretask",
+          transcript: finalText
+        }]);
+      }
+    };
+
+    recognition.onerror = () => {
+      setRecording(false);
+    };
+
+    recognition.start();
+  };
+
+  const stopRecording = () => {
+    if (recognitionRef.current) {
+      recognitionRef.current.onresult = null;
+      recognitionRef.current.stop();
+      recognitionRef.current.abort();
+    }
+    setRecording(false);
+  };
+
+  // ---------------- CONTINUE ----------------
+  const handleContinue = () => {
+    navigate("/task"); // go to actual game
+  };
+
+  // ---------------- UI ----------------
+  return (
+    <>
+      <Background />
+      <div className="min-h-screen flex items-center justify-center px-4">
+
+        <div className="w-full max-w-2xl">
+
+          {/* Top Bar */}
+          <div className="w-full flex justify-between items-center px-2 mb-4">
+            <button
+              onClick={() => navigate(-1)}
+              className="bg-white px-3 py-2 rounded shadow"
+            >
+              ⬅ Back
+            </button>
+
+            <LanguageToggle />
+          </div>
+
+          <div className="bg-white rounded-3xl p-8 shadow-md text-center space-y-6 max-w-xl mx-auto">
+
+            {/* Image */}
+            <img
+              src={`/assets/characters/${friend?.avatar}/target.png`}
+              className="w-44 mx-auto"
+            />
+
+            {/* Prompt */}
+            <p className="text-lg">
+              What would you do now?
+            </p>
+
+            {/* Transcript */}
+            {transcript && (
+              <p className="text-sm text-green-600">
+                You said: {transcript}
+              </p>
+            )}
+
+            {/* Recording */}
+            <Button onClick={recording ? stopRecording : startRecording}>
+              {recording ? "⏹ Stop" : "� Speak"}
+            </Button>
+
+            {/* Continue */}
+            <Button onClick={handleContinue}>
+              Continue
+            </Button>
+
+          </div>
+        </div>
+      </div>
+      </>
+      );
+}
+--- FILE: C:\Users\biswa\Desktop\study-taskv4\project\client\src\pages\TaskGame.jsx ---
+import { useState, useEffect, useContext, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { AppContext } from "../context/AppContext";
+import { categories } from "../data/taskData";
+import LanguageToggle from "../components/common/LanguageToggle";
+import Background from "../components/common/Background";
+
+export default function TaskGame() {
+  const { friend, setResponses } = useContext(AppContext);
+
+  const gender = friend?.gender || "female";
+
+  const [screen, setScreen] = useState("loading");
+  const [storyIndex, setStoryIndex] = useState(0);
+  const [showPractice, setShowPractice] = useState(false);
+  const [showLaugh, setShowLaugh] = useState(false);
+
+  const [stimuli, setStimuli] = useState([]);
+  const [index, setIndex] = useState(0);
+  const [blockIndex, setBlockIndex] = useState(0);
+  const [trialInBlock, setTrialInBlock] = useState(0);
+
+  const [showWord, setShowWord] = useState(false);
+  const [clicked, setClicked] = useState(false);
+  const [startTime, setStartTime] = useState(0);
+
+  const [paused, setPaused] = useState(false);
+  const [breakTime, setBreakTime] = useState(0);
+
+  const timers = useRef([]);
+  const navigate = useNavigate();
+
+  const WORD_DELAY = 1500;
+  const STIMULUS_DURATION = 8000;
+
+  const STORY_LINES = [
+    "You and other children were building block towers.",
+    "One child’s block tower fell down.",
+    "The child feels sad."
+  ];
+
+  const BLOCKS = [
+    { name: "practice", count: 4, break: 5, message: "Ready...Steady...Go!" },
+    { name: "final1", count: 4, break: 5, message: "Take a short break" },
+    { name: "final2", count: 4, break: 5, message: "Take a short break" },
+    { name: "final3", count: 4, break: 0 }
+  ];
+
+  // ---------------- TIMER ----------------
+  const addTimer = (fn, delay) => {
+    const id = setTimeout(() => {
+      if (!paused) fn();
+    }, delay);
+    timers.current.push(id);
+  };
+
+  const clearTimers = () => {
+    timers.current.forEach(clearTimeout);
+    timers.current = [];
+  };
+
+  // ---------------- BUILD STIMULI ----------------
+  useEffect(() => {
+    const ec = categories.ec;
+    const pd = categories.pd;
+    const ai = categories.ai;
+    const pa = categories.pa;
+
+    const p = Math.floor(Math.random() * 3);
+
+    const practice = [
+      { ...ec[p], category: "ec" },
+      { ...pd[p], category: "pd" },
+      { ...ai[p], category: "ai" },
+      { ...pa[p], category: "pa" }
+    ];
+
+    const finals = [
+      ...ec.map(x => ({ ...x, category: "ec" })),
+      ...pd.map(x => ({ ...x, category: "pd" })),
+      ...ai.map(x => ({ ...x, category: "ai" })),
+      ...pa.map(x => ({ ...x, category: "pa" }))
+    ];
+
+    setStimuli([...practice, ...finals]);
+  }, []);
+
+  // ---------------- LOADING ----------------
+  useEffect(() => {
+    const t = setTimeout(() => setScreen("story"), 1000);
+    return () => clearTimeout(t);
+  }, []);
+
+  // ---------------- STORY ----------------
+  useEffect(() => {
+    if (screen !== "story") return;
+
+    if (storyIndex >= STORY_LINES.length) {
+      const t = setTimeout(() => setScreen("instruction"), 2000);
+      return () => clearTimeout(t);
+    }
+
+    const t = setTimeout(() => {
+      setStoryIndex(prev => prev + 1);
+    }, 2000);
+
+    return () => clearTimeout(t);
+  }, [screen, storyIndex]);
+
+  // ---------------- TRIAL ENGINE ----------------
+  useEffect(() => {
+    if (screen !== "game") return;
+    if (!stimuli.length) return;
+    if (index >= stimuli.length) {
+      navigate("/thank-you");
+      return;
+    }
+
+    const block = BLOCKS[blockIndex];
+    if (!block) return;
+
+    setClicked(false);
+    setShowWord(false);
+    setStartTime(performance.now());
+
+    addTimer(() => setShowWord(true), WORD_DELAY);
+
+    addTimer(() => {
+      const s = stimuli[index];
+
+      if (!clicked) {
+        setResponses(prev => [...prev, {
+          stage: "task",
+          category: s.category,
+          word: s.word,
+          responseTime: null
+        }]);
+      }
+
+      // laugh trigger
+      if (s.category === "pa" && s.word.includes("Laugh") && clicked) {
+        setShowLaugh(true);
+        return;
+      }
+
+      advance();
+    }, STIMULUS_DURATION);
+
+    return clearTimers;
+
+  }, [index, screen, paused]);
+
+  // ---------------- ADVANCE ----------------
+  const advance = () => {
+    const block = BLOCKS[blockIndex];
+    const nextTrial = trialInBlock + 1;
+
+    if (nextTrial >= block.count) {
+      const nextBlock = blockIndex + 1;
+
+      if (block.break > 0 && nextBlock < BLOCKS.length) {
+        setBreakTime(block.break);
+        setScreen("break");
+      }
+
+      setBlockIndex(nextBlock);
+      setTrialInBlock(0);
+      setIndex(prev => prev + 1);
+    } else {
+      setTrialInBlock(nextTrial);
+      setIndex(prev => prev + 1);
+    }
+  };
+
+  // ---------------- CLICK ----------------
+  const handleClick = () => {
+    if (clicked) return;
+
+    const rt = Math.round(performance.now() - startTime);
+    const s = stimuli[index];
+
+    setClicked(true);
+
+    setResponses(prev => [...prev, {
+      stage: "task",
+      category: s.category,
+      word: s.word,
+      responseTime: rt
+    }]);
+  };
+
+  // ---------------- BREAK ----------------
+  useEffect(() => {
+    if (screen !== "break") return;
+
+    if (breakTime <= 0) {
+      setScreen("game");
+      return;
+    }
+
+    const t = setTimeout(() => {
+      if (!paused) setBreakTime(prev => prev - 1);
+    }, 1000);
+
+    return () => clearTimeout(t);
+
+  }, [breakTime, screen, paused]);
+
+  // ---------------- UI ----------------
+  return (
+    <>
+      <Background />
+      <div className="min-h-screen flex flex-col items-center justify-center px-4">
+
+        {/* TOP BAR */}
+        <div className="absolute top-4 left-4">
+          <LanguageToggle />
+        </div>
+
+        <button
+          onClick={() => setPaused(p => !p)}
+          className="absolute top-4 right-4 bg-white px-4 py-2 rounded-full shadow"
+        >
+          {paused ? "▶ Resume" : "⏸ Pause"}
+        </button>
+
+        {/* LOADING */}
+        {screen === "loading" && <h2>Getting things ready…</h2>}
+
+        {/* STORY */}
+        {screen === "story" && (
+          <div className="text-center">
+            {STORY_LINES.slice(0, storyIndex).map((l, i) => <p key={i}>{l}</p>)}
+          </div>
+        )}
+
+        {/* INSTRUCTION */}
+        {screen === "instruction" && (
+          <div className="text-center space-y-4">
+            <h2>How to play �</h2>
+            <p>Click if you would act like this</p>
+            <p>Otherwise do nothing</p>
+
+            <button onClick={() => setShowPractice(true)}>
+              Start
+            </button>
+          </div>
+        )}
+
+        {/* PRACTICE MODAL */}
+        {showPractice && (
+          <div className="fixed inset-0 bg-black/40 flex items-center justify-center">
+            <div className="bg-white p-6 rounded-xl text-center">
+              <p>This is a practice trial</p>
+              <button onClick={() => {
+                setShowPractice(false);
+                setScreen("game");
+              }}>
+                OK
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* GAME */}
+        {screen === "game" && stimuli[index] && (
+          <div onClick={handleClick} className="bg-white p-6 rounded-xl text-center cursor-pointer">
+
+            <img
+              src={`/assets/actions/${stimuli[index].category}/${gender}/${stimuli[index].img}`}
+              className="w-64 mx-auto"
+            />
+
+            {showWord && <p>{stimuli[index].word}</p>}
+          </div>
+        )}
+
+        {/* BREAK */}
+        {screen === "break" && (
+          <div className="text-center">
+            <h2>{BLOCKS[blockIndex - 1]?.message}</h2>
+            <h1>{breakTime}</h1>
+          </div>
+        )}
+
+        {/* LAUGH MODAL */}
+        {showLaugh && (
+          <div className="fixed inset-0 bg-black/40 flex items-center justify-center">
+            <div className="bg-white p-6 text-center space-y-2">
+              <h3>Why did you feel like laughing?</h3>
+              {["Funny tower", "Funny face", "Others laughing", "Don't know"].map(r => (
+                <button key={r} onClick={() => {
+                  setResponses(p => [...p, { stage: "laugh_reason", value: r }]);
+                  setShowLaugh(false);
+                  advance();
+                }}>{r}</button>
+              ))}
+            </div>
+          </div>
+        )}
+
+      </div>
+    </>
+  );
+}
+--- FILE: C:\Users\biswa\Desktop\study-taskv4\project\client\src\pages\ThankYou.jsx ---
+import { useNavigate } from "react-router-dom";
+import Background from "../components/common/Background";
+
+export default function ThankYou() {
+  const navigate = useNavigate();
+
+  return (
+    <>
+      <Background />
+      <div className="min-h-screen bg-[#F7FBFF] flex items-center justify-center px-4">
+
+        <div className="bg-white rounded-3xl shadow-md p-8 text-center space-y-6 max-w-md w-full">
+
+          {/* GIF PLACEHOLDER */}
+          <div className="w-48 h-48 mx-auto flex items-center justify-center bg-gray-100 rounded-xl">
+            {/* Replace src later */}
+            <img
+              src="/assets/gifs/thankyou.gif"
+              alt="Thank you"
+              className="w-full h-full object-contain"
+            />
+          </div>
+
+          {/* TEXT */}
+          <h2 className="text-2xl font-semibold text-slate-700">
+            Thank you for playing �
+          </h2>
+
+          <p className="text-slate-600">
+            You did a great job!
+            Your responses have been recorded.
+          </p>
+
+        </div>
+      </div>
+    </>
+  );
+}
+--- FILE: C:\Users\biswa\Desktop\study-taskv4\project\client\src\services\api.js ---
+export const validateParticipant = async (data) => {
+  console.log("Validating participant:", data);
+
+  // simulate delay
+  await new Promise((res) => setTimeout(res, 500));
+
+  return {
+    data: {
+      allowed: true,
+    },
+  };
+};
+--- FILE: C:\Users\biswa\Desktop\study-taskv4\project\client\src\utils\constants.js ---
+
+--- FILE: C:\Users\biswa\Desktop\study-taskv4\project\client\src\utils\helper.js ---
+

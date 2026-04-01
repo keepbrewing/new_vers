@@ -1,0 +1,10 @@
+{
+  "start": "Start",
+  "continue": "Continue",
+  "enterName": "Enter Name",
+
+  "pd_instruction_1": "� Look at all the pictures. Is any child having a problem?",
+  "pd_instruction_select": "� Touch the picture that shows the problem.",
+  "pd_try_again": "❌ Try again.",
+  "pd_look_carefully": "❌ Look carefully and try again."
+}
